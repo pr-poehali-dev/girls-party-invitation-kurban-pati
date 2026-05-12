@@ -247,7 +247,7 @@ export default function Index() {
           <div className="reveal space-y-8">
             {/* Основной вечер */}
             <div>
-              <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium">На основном вечере</p>
+              <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium text-center">ОСНОвная программа</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
                   "уютный двухэтажный дом за городом",
@@ -276,7 +276,7 @@ export default function Index() {
 
             {/* Ночёвка */}
             <div>
-              <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium">На ночёвке</p>
+              <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium text-center">ночёвка (дополнительно)</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
                   "сосиски на мангале",
