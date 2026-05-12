@@ -228,7 +228,7 @@ export default function Index() {
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0" style={{ background: "rgba(20,12,8,0.62)" }} />
+        <div className="absolute inset-0" style={{ background: "rgba(20,12,8,0.38)" }} />
         <div className="relative z-10 max-w-xl mx-auto text-center">
           <p className="text-white mb-3 text-4xl opacity-30 font-display leading-none">"</p>
           <p className="text-lg md:text-xl text-white leading-relaxed italic font-display mb-4" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.3)" }}>
@@ -633,21 +633,13 @@ export default function Index() {
               </button>
             </form>
           )}
-        </div>
-      </section>
 
-      {/* INVITATION */}
-      <section className="py-14 px-5">
-        <div className="max-w-xl mx-auto">
-          <div className="reveal text-center rounded-3xl p-8 md:p-10"
-            style={{ background: "rgba(255,255,255,0.7)", border: "1px solid hsl(340 25% 88%)" }}>
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-4xl">💌</span>
-            </div>
-            <p className="text-sm text-[hsl(340,12%,42%)] leading-relaxed mb-4">
+          <div className="mt-6 text-center px-2">
+            <span className="text-2xl">💌</span>
+            <p className="text-sm text-[hsl(340,12%,48%)] leading-relaxed mt-2">
               После подтверждения участия тебе будет отправлено <span className="text-[hsl(340,28%,35%)] font-medium">бумажное приглашение</span>. Мы не публикуем мероприятие массово — приглашение передаётся лично, чтобы сохранить атмосферу уюта и сестринства.
             </p>
-            <p className="text-xs text-[hsl(340,18%,55%)] italic font-display text-base">Если у тебя есть подруга, которой близка такая атмосфера — ты можешь передать ей приглашение</p>
+            <p className="text-xs text-[hsl(340,15%,58%)] italic font-display mt-2">Если у тебя есть подруга, которой близка такая атмосфера — ты можешь передать ей приглашение</p>
           </div>
         </div>
       </section>
