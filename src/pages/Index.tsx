@@ -420,10 +420,8 @@ export default function Index() {
                 <div className="h-px" style={{ background: "hsl(340 25% 90%)" }} />
               </div>
               <div className="rounded-2xl p-4" style={{ background: "hsl(340,35%,97%)", border: "1px solid hsl(340 30% 88%)" }}>
-                <p className="text-xs text-[hsl(340,20%,50%)] uppercase tracking-wider mb-1">Важно</p>
-                <p className="text-sm text-[hsl(340,22%,32%)] font-medium leading-relaxed">
-                  Платья должны закрывать аурат от пупка до колен.
-                </p>
+                <p className="text-xs text-[hsl(340,20%,50%)] uppercase tracking-wider mb-1 text-center">Важно</p>
+                <p className="text-sm text-[hsl(340,22%,32%)] font-medium leading-relaxed text-center">Платья должны закрывать аурат от пупка до колен</p>
               </div>
             </div>
           </div>
