@@ -224,7 +224,7 @@ export default function Index() {
       {/* QUOTE */}
       <section className="relative overflow-hidden py-20 px-5">
         <img
-          src="https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/83b30719-73d8-4e9d-b5ae-56eefd27b736.jpg"
+          src="https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/91ced3ad-ac6f-4d47-b515-a393d517e68f.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
