@@ -175,7 +175,9 @@ export default function Index() {
             style={{ fontSize: "clamp(3.5rem, 15vw, 8rem)" }}>
             ПАТИ
           </h1>
-          <p className="animate-fade-up opacity-0-init delay-400 text-[hsl(340,14%,44%)] md:text-base max-w-sm mx-auto leading-relaxed mb-10 text-lg">Приглашаем тебя на закрытый халяльный вечер для девушек-мусульманок 💗</p>
+          <p className="animate-fade-up opacity-0-init delay-400 text-[hsl(340,14%,44%)] md:text-base max-w-sm mx-auto leading-relaxed mb-10 text-lg">Приглашаем тебя на закрытый халяльный вечер для девушек-мусульманок 💗
+
+31 МАЯ - 1 ИЮНЯ</p>
 
           <div className="animate-fade-up opacity-0-init delay-500 flex gap-2 md:gap-3 justify-center mb-10">
             <CountdownBox value={countdown.days} label="дней" />
