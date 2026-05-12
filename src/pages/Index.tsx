@@ -434,7 +434,7 @@ export default function Index() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,60%)] mb-1">Без ночёвки</p>
-                  <p className="font-display text-3xl text-rose-custom font-light">1500₽</p>
+                  <p className="font-display text-3xl text-rose-custom font-light">4000₽</p>
                 </div>
                 <span className="text-xs text-[hsl(340,12%,55%)] mt-1">16+</span>
               </div>
@@ -451,7 +451,7 @@ export default function Index() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,60%)] mb-1">С ночёвкой</p>
-                  <p className="font-display text-3xl text-rose-custom font-light">2500₽</p>
+                  <p className="font-display text-3xl text-rose-custom font-light">5500₽</p>
                 </div>
                 <span className="text-xs text-[hsl(340,12%,55%)] mt-1">18+</span>
               </div>
@@ -469,29 +469,13 @@ export default function Index() {
         </div>
       </section>
 
-      {/* INVITATION */}
-      <section className="py-14 px-5">
-        <div className="max-w-xl mx-auto">
-          <div className="reveal text-center rounded-3xl p-8 md:p-10"
-            style={{ background: "rgba(255,255,255,0.7)", border: "1px solid hsl(340 25% 88%)" }}>
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-4xl">💌</span>
-            </div>
-            <p className="text-sm text-[hsl(340,12%,42%)] leading-relaxed mb-4">
-              После подтверждения участия тебе будет отправлено <span className="text-[hsl(340,28%,35%)] font-medium">бумажное приглашение</span>. Мы не публикуем мероприятие массово — приглашение передаётся лично, чтобы сохранить атмосферу уюта и сестринства.
-            </p>
-            <p className="text-xs text-[hsl(340,18%,55%)] italic font-display text-base">Если у тебя есть подруга, которой близка такая атмосфера — ты можешь передать ей приглашение</p>
-          </div>
-        </div>
-      </section>
-
       {/* PARTNERS */}
       <section className="py-10 px-5">
         <div className="max-w-xl mx-auto">
           <div className="reveal text-center rounded-3xl p-7"
             style={{ background: "linear-gradient(135deg, hsl(340,35%,97%), hsl(35,40%,97%))", border: "1px solid hsl(340 25% 88%)" }}>
             <p className="text-sm text-[hsl(340,14%,42%)] leading-relaxed mb-5">
-              🤍&nbsp; Мы будем рады партнёрам и спонсорам, которые захотят стать частью «КУРБАН ПАТИ» ✨
+              🤍&nbsp; Мы будем рады партнёрам и спонсорам, которые захотят поддержать проект и сделать его доступнее для участниц
             </p>
             <a href="https://t.me/a_ya_writer" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-white text-sm font-medium transition-opacity hover:opacity-90"
@@ -519,7 +503,7 @@ export default function Index() {
                 style={{ background: "hsl(340,35%,97%)", border: "1px solid hsl(340 25% 88%)" }}>
                 <p className="text-xs uppercase tracking-widest text-[hsl(340,30%,58%)] mb-2">Для закрепления места</p>
                 <p className="text-sm text-[hsl(340,12%,38%)] leading-relaxed">
-                  Переведи оплату — <span className="font-semibold text-rose-custom">{form.format === "sleep" ? "2500₽" : "1500₽"}</span> — на Т-Банк по номеру:
+                  Переведи оплату — <span className="font-semibold text-rose-custom">{form.format === "sleep" ? "5500₽" : "4000₽"}</span> — на Т-Банк по номеру:
                 </p>
                 <p className="font-display text-2xl text-[hsl(340,28%,28%)]">8 909 055 79 88</p>
                 <p className="text-xs text-[hsl(340,10%,50%)]">Айя Васильевна Р.</p>
@@ -588,8 +572,8 @@ export default function Index() {
                 <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-2">Формат *</label>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { val: "no-sleep", label: "Без ночёвки", price: "1500₽" },
-                    { val: "sleep", label: "С ночёвкой", price: "2500₽" },
+                    { val: "no-sleep", label: "Без ночёвки", price: "4000₽" },
+                    { val: "sleep", label: "С ночёвкой", price: "5500₽" },
                   ].map(opt => (
                     <label key={opt.val}
                       className={`cursor-pointer rounded-2xl p-3.5 border-2 transition-all ${form.format === opt.val ? "border-rose-custom" : "border-[hsl(340,20%,88%)]"}`}
@@ -639,6 +623,22 @@ export default function Index() {
               </button>
             </form>
           )}
+        </div>
+      </section>
+
+      {/* INVITATION */}
+      <section className="py-14 px-5">
+        <div className="max-w-xl mx-auto">
+          <div className="reveal text-center rounded-3xl p-8 md:p-10"
+            style={{ background: "rgba(255,255,255,0.7)", border: "1px solid hsl(340 25% 88%)" }}>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="text-4xl">💌</span>
+            </div>
+            <p className="text-sm text-[hsl(340,12%,42%)] leading-relaxed mb-4">
+              После подтверждения участия тебе будет отправлено <span className="text-[hsl(340,28%,35%)] font-medium">бумажное приглашение</span>. Мы не публикуем мероприятие массово — приглашение передаётся лично, чтобы сохранить атмосферу уюта и сестринства.
+            </p>
+            <p className="text-xs text-[hsl(340,18%,55%)] italic font-display text-base">Если у тебя есть подруга, которой близка такая атмосфера — ты можешь передать ей приглашение</p>
+          </div>
         </div>
       </section>
 
