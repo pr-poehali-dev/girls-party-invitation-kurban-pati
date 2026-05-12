@@ -414,9 +414,7 @@ export default function Index() {
             </div>
             <div className="space-y-4">
               <div>
-                <p className="text-sm text-[hsl(340,12%,40%)] leading-relaxed mb-3 text-center">
-                  Вечерние платья и праздничные причёски. Мероприятие полностью женское, без присутствия мужчин — поэтому можно снять хиджабы.
-                </p>
+                <p className="text-sm text-[hsl(340,12%,40%)] leading-relaxed mb-3 text-center">Вечерние платья и праздничные причёски. Мероприятие полностью женское, без присутствия мужчин — поэтому можно снять хиджабы</p>
                 <div className="h-px" style={{ background: "hsl(340 25% 90%)" }} />
               </div>
               <div className="rounded-2xl p-4" style={{ background: "hsl(340,35%,97%)", border: "1px solid hsl(340 30% 88%)" }}>
