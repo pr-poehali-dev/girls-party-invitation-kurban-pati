@@ -200,50 +200,15 @@ export default function Index() {
             <hr className="divider-rose max-w-xs mx-auto" />
           </div>
 
-          <div className="reveal rounded-3xl p-6 md:p-10 mb-6"
+          <div className="reveal rounded-3xl p-8 md:p-12 text-center"
             style={{ background: "rgba(255,255,255,0.75)", border: "1px solid hsl(340 30% 90%)", backdropFilter: "blur(8px)" }}>
-            <p className="text-[hsl(340,15%,35%)] text-sm md:text-base leading-relaxed">
-              <span className="font-semibold text-rose-custom">«КУРБАН ПАТИ»</span> — это закрытый халяльный вечер для девушек-мусульманок, посвящённый празднику Курбан-байрам. Мы создаём безопасное и красивое пространство, где можно отдохнуть, пообщаться, почувствовать атмосферу сестринства и вспомнить смысл праздника.
+            <div className="text-4xl mb-5">🌸</div>
+            <p className="font-display text-xl md:text-2xl text-[hsl(340,20%,30%)] leading-relaxed mb-4 font-light italic">
+              «Мы создаём пространство, где мусульманки смогут провести Курбан-байрам в атмосфере сестринства, красоты и халяльного отдыха.»
             </p>
-          </div>
-
-          <div className="reveal grid md:grid-cols-2 gap-4 mb-4">
-            <div className="rounded-3xl p-6 card-hover"
-              style={{ background: "linear-gradient(135deg, hsl(340,40%,97%), hsl(340,30%,93%))", border: "1px solid hsl(340 30% 88%)" }}>
-              <div className="text-3xl mb-3">💭</div>
-              <h3 className="font-display text-xl text-[hsl(340,25%,22%)] font-medium mb-2">Проблема</h3>
-              <p className="text-[hsl(340,12%,42%)] text-sm leading-relaxed">
-                Сейчас почти нет халяльных праздничных мероприятий для девушек-мусульманок — чаще всего такие форматы делают только для детей. Мы хотим создать современный, красивый и дозволенный формат отдыха.
-              </p>
-            </div>
-            <div className="rounded-3xl p-6 card-hover"
-              style={{ background: "linear-gradient(135deg, hsl(35,50%,97%), hsl(35,40%,93%))", border: "1px solid hsl(35 30% 88%)" }}>
-              <div className="text-3xl mb-3">🌟</div>
-              <h3 className="font-display text-xl text-[hsl(340,25%,22%)] font-medium mb-2">Цель</h3>
-              <p className="text-[hsl(340,12%,42%)] text-sm leading-relaxed">
-                Сформировать у девушек представление о роли и значении праздника Курбан-байрам через красивый, современный и полностью халяльный формат вечера.
-              </p>
-            </div>
-          </div>
-
-          <div className="reveal rounded-3xl p-6 md:p-8"
-            style={{ background: "rgba(255,255,255,0.65)", border: "1px solid hsl(340 30% 90%)" }}>
-            <div className="text-3xl mb-3">🎯</div>
-            <h3 className="font-display text-xl text-[hsl(340,25%,22%)] font-medium mb-4">Задачи вечера</h3>
-            <div className="grid sm:grid-cols-2 gap-2">
-              {[
-                "Создать возможность для халяльного отдыха",
-                "Укрепить сестринство между девушками",
-                "Напомнить историю праздника",
-                "Обсудить темы покорности Аллаху и щедрости",
-                "Показать, что праздник может быть красивым и халяльным",
-              ].map((t, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <span className="text-rose-custom mt-0.5 text-sm">✦</span>
-                  <span className="text-sm text-[hsl(340,12%,40%)]">{t}</span>
-                </div>
-              ))}
-            </div>
+            <p className="text-[hsl(340,12%,48%)] text-sm md:text-base leading-relaxed">
+              Это не массовая вечеринка, а тёплый закрытый вечер для своих.
+            </p>
           </div>
         </div>
       </section>
