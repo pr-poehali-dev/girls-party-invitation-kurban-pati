@@ -414,7 +414,7 @@ export default function Index() {
             </div>
             <div className="space-y-4">
               <div>
-                <p className="text-sm text-[hsl(340,12%,40%)] leading-relaxed mb-3">
+                <p className="text-sm text-[hsl(340,12%,40%)] leading-relaxed mb-3 text-center">
                   Вечерние платья и праздничные причёски. Мероприятие полностью женское, без присутствия мужчин — поэтому можно снять хиджабы.
                 </p>
                 <div className="h-px" style={{ background: "hsl(340 25% 90%)" }} />
