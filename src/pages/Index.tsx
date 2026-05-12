@@ -175,6 +175,7 @@ export default function Index() {
             style={{ fontSize: "clamp(3.5rem, 15vw, 8rem)" }}>
             ПАТИ
           </h1>
+          <p className="animate-fade-up opacity-0-init delay-350 text-[hsl(340,35%,58%)] max-w-sm mx-auto mb-3 text-base" style={{ fontFamily: "serif", direction: "rtl" }}>السلام عليكم ورحمة الله وبركاته</p>
           <p className="animate-fade-up opacity-0-init delay-400 text-[hsl(340,14%,44%)] md:text-base max-w-sm mx-auto leading-relaxed mb-10 text-lg">Приглашаем тебя на закрытый халяльный вечер для девушек-мусульманок 💗
 
 31 МАЯ - 1 ИЮНЯ</p>
