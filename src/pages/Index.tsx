@@ -382,9 +382,7 @@ export default function Index() {
             <p className="text-sm text-[hsl(340,12%,42%)] leading-relaxed mb-4">
               После подтверждения участия тебе будет отправлено <span className="text-[hsl(340,28%,35%)] font-medium">бумажное приглашение</span>. Мы не публикуем мероприятие массово — приглашение передаётся лично, чтобы сохранить атмосферу уюта и сестринства.
             </p>
-            <p className="text-xs text-[hsl(340,18%,55%)] italic font-display text-base">
-              «Если у тебя есть подруга, которой близка такая атмосфера — ты можешь передать ей приглашение»
-            </p>
+            <p className="text-xs text-[hsl(340,18%,55%)] italic font-display text-base">Если у тебя есть подруга, которой близка такая атмосфера — ты можешь передать ей приглашение</p>
           </div>
         </div>
       </section>
