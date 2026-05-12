@@ -6,9 +6,10 @@
       "path": "/",
       "body": {
         "name": "Айша",
+        "surname": "Иванова",
         "age": "22",
-        "phone": "+79001234567",
-        "telegram": "@aisha",
+        "phone": "+7 (900) 123-45-67",
+        "telegram": "@aisha_user",
         "format": "no-sleep",
         "transfer": "no",
         "address": "г. Казань, ул. Примерная, д. 1, кв. 5, 420000"

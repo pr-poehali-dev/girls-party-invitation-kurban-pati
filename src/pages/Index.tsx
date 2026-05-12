@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
 
 const PARTY_DATE = new Date("2026-05-31T17:00:00");
@@ -64,8 +64,30 @@ function CountdownBox({ value, label }: { value: number; label: string }) {
   );
 }
 
+function formatPhone(raw: string): string {
+  const digits = raw.replace(/\D/g, "");
+  let d = digits;
+  if (d.startsWith("8")) d = "7" + d.slice(1);
+  if (!d.startsWith("7")) d = "7" + d;
+  d = d.slice(0, 11);
+  let result = "+7";
+  if (d.length > 1) result += " (" + d.slice(1, 4);
+  if (d.length >= 4) result += ") " + d.slice(4, 7);
+  if (d.length >= 7) result += "-" + d.slice(7, 9);
+  if (d.length >= 9) result += "-" + d.slice(9, 11);
+  return result;
+}
+
+function normalizeTelegram(raw: string): string {
+  let val = raw.trim();
+  if (val.startsWith("@")) val = val.slice(1);
+  val = val.replace(/[^\w]/g, (ch) => ch === "_" ? "_" : "");
+  return val ? "@" + val : "";
+}
+
 interface FormData {
   name: string;
+  surname: string;
   age: string;
   phone: string;
   telegram: string;
@@ -78,26 +100,45 @@ export default function Index() {
   useReveal();
   const countdown = useCountdown(PARTY_DATE);
   const [form, setForm] = useState<FormData>({
-    name: "", age: "", phone: "", telegram: "", format: "no-sleep", transfer: "no", address: "",
+    name: "", surname: "", age: "", phone: "", telegram: "", format: "no-sleep", transfer: "no", address: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhone(e.target.value);
+    setForm({ ...form, phone: formatted });
+  };
+
+  const handleTelegramChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, telegram: e.target.value });
+  };
+
+  const handleTelegramBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setForm(prev => ({ ...prev, telegram: normalizeTelegram(e.target.value) }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(false);
     try {
-      await fetch("https://functions.poehali.dev/4423475b-7db5-4f71-b78a-b95904974adb", {
+      const res = await fetch("https://functions.poehali.dev/4423475b-7db5-4f71-b78a-b95904974adb", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          telegram: normalizeTelegram(form.telegram),
+        }),
       });
-    } catch (_e) {
-      // ignore
-    } finally {
+      if (!res.ok) throw new Error("bad response");
       setSubmitted(true);
       setLoading(false);
       setTimeout(() => document.getElementById("form")?.scrollIntoView({ behavior: "smooth" }), 50);
+    } catch {
+      setError(true);
+      setLoading(false);
     }
   };
 
@@ -167,9 +208,22 @@ export default function Index() {
       <section className="py-16 md:py-20 px-5" id="about">
         <div className="max-w-2xl mx-auto">
           <SectionTitle>О мероприятии</SectionTitle>
-          <div className="reveal text-center">
-            <p className="font-display text-lg md:text-xl text-[hsl(340,18%,32%)] leading-relaxed italic font-light mb-4">Мы создаём пространство, где мусульманки смогут провести Курбан-байрам в атмосфере сестринства, красоты и халяльного отдыха ✨</p>
-            <p className="text-sm text-[hsl(340,10%,52%)]">«КУРБАН ПАТИ» — это возможность вместе вспомнить смысл праздника, поговорить о покорности Аллаху, щедрости, искренности и ценности жертвенности ради Него.</p>
+          <div className="reveal text-center space-y-4">
+            <p className="text-lg md:text-xl text-[hsl(340,18%,32%)] leading-relaxed font-light">
+              Мы создаём пространство, где мусульманки смогут провести Курбан-байрам в атмосфере сестринства, красоты и халяльного отдыха ✨
+            </p>
+            <p className="text-sm text-[hsl(340,10%,52%)]">
+              «КУРБАН ПАТИ» — это возможность вместе вспомнить смысл праздника, поговорить о покорности Аллаху, щедрости, искренности и ценности жертвенности ради Него.
+            </p>
+            <div className="pt-4 pb-2">
+              <div className="inline-block rounded-2xl px-6 py-5 max-w-lg mx-auto"
+                style={{ background: "rgba(255,255,255,0.7)", border: "1px solid hsl(340 25% 88%)" }}>
+                <p className="text-base md:text-lg text-[hsl(340,18%,36%)] leading-relaxed italic font-display">
+                  «Верующие в своей любви, милосердии и сострадании друг к другу подобны одному телу»
+                </p>
+                <p className="text-xs text-[hsl(340,15%,55%)] mt-2 tracking-wide">— аль-Бухари, Муслим</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -179,26 +233,57 @@ export default function Index() {
         style={{ background: "linear-gradient(160deg, hsl(340,30%,97%), hsl(35,40%,97%))" }}>
         <div className="max-w-2xl mx-auto">
           <SectionTitle>Тебя ждёт</SectionTitle>
-          <div className="reveal grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-            {[
-              "Халяльный фуршет",
-              "Игры и конкурсы",
-              "Интерактивные зоны",
-              "Аукцион",
-              "Королева вечера",
-              "Задувание свечей на торте",
-              "Шуточные выступления",
-              "Призы и подарки",
-              "Фотограф",
-              "Хна",
-              "Полароид",
-              "Атмосфера сестринства",
-            ].map((t, i) => (
-              <div key={i} className="rounded-2xl px-3 py-3 text-center text-sm text-[hsl(340,14%,38%)]"
-                style={{ background: "rgba(255,255,255,0.8)", border: "1px solid hsl(340 20% 90%)" }}>
-                {t}
+
+          <div className="reveal space-y-8">
+            {/* Основной вечер */}
+            <div>
+              <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium">На основном вечере</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {[
+                  "уютный двухэтажный дом за городом",
+                  "атмосфера сестринства и халяльного отдыха",
+                  "эстетичное оформление в девчачьем стиле",
+                  "халяльный фуршет и авторский торт",
+                  "беседа о смысле Курбан-байрама, покорности и щедрости",
+                  "весёлые игры, конкурсы и интерактивы",
+                  "TED Talk с выступлениями участниц",
+                  "аукцион эксклюзивных подарков",
+                  "создание общего арт-объекта с помощью красок",
+                  "полароид и обмен открытками",
+                  "рисование хной",
+                  "выбор Королевы вечера",
+                  "бумажное приглашение",
+                  "секретный бонус",
+                ].map((t, i) => (
+                  <div key={i} className="flex items-start gap-2 rounded-2xl px-4 py-3 text-sm text-[hsl(340,14%,38%)]"
+                    style={{ background: "rgba(255,255,255,0.8)", border: "1px solid hsl(340 20% 90%)" }}>
+                    <span className="text-rose-custom flex-shrink-0">🤍</span>
+                    <span>{t}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Ночёвка */}
+            <div>
+              <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium">На ночёвке</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {[
+                  "сосиски на мангале",
+                  "бенгальские огни",
+                  "баня",
+                  "душевные разговоры",
+                  "размещение в комфортных номерах",
+                  "завтрак",
+                ].map((t, i) => (
+                  <div key={i} className="flex items-start gap-2 rounded-2xl px-4 py-3 text-sm text-[hsl(340,14%,38%)]"
+                    style={{ background: "rgba(255,255,255,0.8)", border: "1px solid hsl(340 20% 90%)" }}>
+                    <span className="text-rose-custom flex-shrink-0">🌙</span>
+                    <span>{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -208,18 +293,40 @@ export default function Index() {
         <div className="max-w-2xl mx-auto">
           <SectionTitle>Место и время</SectionTitle>
 
+          {/* Дом + карта в одном блоке */}
           <div className="reveal mb-8 rounded-3xl overflow-hidden" style={{ border: "1px solid hsl(340 20% 88%)" }}>
-            <img src={HOUSE_IMG} alt="Место проведения" className="w-full h-48 md:h-60 object-cover" />
-            <div className="p-5" style={{ background: "rgba(255,255,255,0.95)" }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Icon name="MapPin" size={15} className="text-rose-custom flex-shrink-0" />
-                <span className="text-sm font-medium text-[hsl(340,20%,28%)]">с. Юськи, ул. Октябрьская, 50</span>
+            <div className="grid md:grid-cols-2">
+              <div className="relative">
+                <img src={HOUSE_IMG} alt="Место проведения" className="w-full h-44 md:h-full object-cover" />
+                <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(255,255,255,0.3))" }} />
               </div>
-              <p className="text-xs text-[hsl(340,10%,52%)] ml-5">Двухэтажный дом · Возможен трансфер от Соборной мечети</p>
+              <div className="relative" style={{ minHeight: "200px" }}>
+                <iframe
+                  src="https://yandex.ru/map-widget/v1/?ll=52.971&pt=52.971,56.820&z=15&l=map&text=%D1%81.%20%D0%AE%D1%81%D1%8C%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%81%D0%BA%D0%B0%D1%8F%2C%2050"
+                  width="100%" height="100%" style={{ border: "none", display: "block", minHeight: "200px", position: "absolute", inset: 0 }}
+                  allowFullScreen title="Карта" />
+              </div>
+            </div>
+            <div className="p-5" style={{ background: "rgba(255,255,255,0.95)" }}>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Icon name="MapPin" size={15} className="text-rose-custom flex-shrink-0" />
+                    <span className="text-sm font-medium text-[hsl(340,20%,28%)]">с. Юськи, ул. Октябрьская, 50</span>
+                  </div>
+                  <p className="text-xs text-[hsl(340,10%,52%)] ml-5">Двухэтажный дом · Возможен трансфер от Соборной мечети</p>
+                </div>
+                <a href="https://yandex.ru/maps/?text=%D1%81.%20%D0%AE%D1%81%D1%8C%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%81%D0%BA%D0%B0%D1%8F%2C%2050"
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-xs font-medium px-3 py-1.5 rounded-full text-white flex-shrink-0"
+                  style={{ background: "hsl(340,48%,68%)" }}>
+                  Открыть карту
+                </a>
+              </div>
             </div>
           </div>
 
-          <div className="reveal grid grid-cols-3 gap-3 mb-8">
+          <div className="reveal grid grid-cols-3 gap-3">
             {[
               { label: "Дата", val: "31 мая 2026" },
               { label: "Заезд", val: "17:00" },
@@ -231,24 +338,6 @@ export default function Index() {
                 <div className="font-display text-lg md:text-xl text-[hsl(340,22%,24%)] font-light">{item.val}</div>
               </div>
             ))}
-          </div>
-
-          {/* Map */}
-          <div className="reveal rounded-3xl overflow-hidden" style={{ border: "1px solid hsl(340 20% 88%)" }}>
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?ll=52.971&pt=52.971,56.820&z=15&l=map&text=%D1%81.%20%D0%AE%D1%81%D1%8C%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%2C%2050"
-              width="100%" height="260" style={{ border: "none", display: "block" }}
-              allowFullScreen title="Карта" />
-            <div className="px-5 py-3 flex items-center justify-between"
-              style={{ background: "rgba(255,255,255,0.95)" }}>
-              <p className="text-xs text-[hsl(340,10%,50%)]">с. Юськи, ул. Октябрьская, 50</p>
-              <a href="https://yandex.ru/maps/?text=%D1%81.%20%D0%AE%D1%81%D1%8C%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%2C%2050"
-                target="_blank" rel="noopener noreferrer"
-                className="text-xs font-medium px-3 py-1.5 rounded-full text-white"
-                style={{ background: "hsl(340,48%,68%)" }}>
-                Открыть карту
-              </a>
-            </div>
           </div>
         </div>
       </section>
@@ -264,17 +353,17 @@ export default function Index() {
             <div className="space-y-0">
               {[
                 { time: "17:00", text: "Заезд, знакомство с локацией" },
-                { time: "18:00", text: "Открытие вечера" },
-                { time: "19:00", text: "Выступления, интерактивные зоны" },
-                { time: "20:00", text: "Аукцион, королева вечера" },
-                { time: "до 22:00", text: "Выезд участниц без ночёвки" },
+                { time: "18:00", text: "Открытие вечера, беседа о значении Курбан Байрама" },
+                { time: "19:00", text: "Ted Talk, интерактивные зоны" },
+                { time: "20:00", text: "Аукцион эксклюзивных подарков, выбор Королевы вечера" },
+                { time: "до 22:00", text: "Выезд участниц без ночёвки", grey: true },
                 { time: "22:00", text: "Сосиски у мангала, бенгальские огни", night: true },
-                { time: "24:00", text: "Баня, душевные разговоры", night: true },
+                { time: "23:00", text: "Баня, душевные разговоры", night: true },
               ].map((item, i) => (
                 <div key={i} className="flex items-baseline gap-4 py-3"
                   style={{ borderBottom: "1px solid hsl(340 20% 91%)" }}>
-                  <span className="text-xs font-medium text-rose-custom w-16 flex-shrink-0 tabular-nums">{item.time}</span>
-                  <span className="text-sm text-[hsl(340,12%,38%)] flex-1">{item.text}</span>
+                  <span className={`text-xs font-medium w-16 flex-shrink-0 tabular-nums ${item.grey ? "text-[hsl(340,8%,62%)]" : "text-rose-custom"}`}>{item.time}</span>
+                  <span className={`text-sm flex-1 ${item.grey ? "text-[hsl(340,8%,60%)]" : "text-[hsl(340,12%,38%)]"}`}>{item.text}</span>
                   {item.night && (
                     <span className="text-[10px] text-[hsl(340,30%,62%)] border rounded-full px-2 py-0.5 flex-shrink-0"
                       style={{ borderColor: "hsl(340,30%,82%)" }}>с ночёвкой</span>
@@ -285,16 +374,18 @@ export default function Index() {
           </div>
 
           <div className="reveal">
-            <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium">1 июня · с ночёвкой</p>
+            <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,62%)] mb-4 font-medium">1 июня</p>
             <div className="space-y-0">
               {[
-                { time: "10:00", text: "Завтрак" },
-                { time: "11:00", text: "Выезд" },
+                { time: "10:00", text: "Завтрак", badge: "с ночёвкой" },
+                { time: "11:00", text: "Выезд", badge: "с ночёвкой" },
               ].map((item, i) => (
                 <div key={i} className="flex items-baseline gap-4 py-3"
                   style={{ borderBottom: "1px solid hsl(340 20% 91%)" }}>
                   <span className="text-xs font-medium text-rose-custom w-16 flex-shrink-0 tabular-nums">{item.time}</span>
-                  <span className="text-sm text-[hsl(340,12%,38%)]">{item.text}</span>
+                  <span className="text-sm text-[hsl(340,12%,38%)] flex-1">{item.text}</span>
+                  <span className="text-[10px] text-[hsl(340,30%,62%)] border rounded-full px-2 py-0.5 flex-shrink-0"
+                    style={{ borderColor: "hsl(340,30%,82%)" }}>{item.badge}</span>
                 </div>
               ))}
             </div>
@@ -362,11 +453,14 @@ export default function Index() {
                 </div>
                 <span className="text-xs text-[hsl(340,12%,55%)] mt-1">18+</span>
               </div>
-              <div className="h-px mb-4" style={{ background: "hsl(340 25% 87%)" }} />
+              <div className="h-px mb-4" style={{ background: "hsl(340 25% 86%)" }} />
               <ul className="space-y-1.5 text-xs text-[hsl(340,12%,45%)]">
                 <li>Выезд 1 июня в 11:00</li>
-                <li>Двухместные комнаты</li>
-                <li>Мангал, баня, завтрак</li>
+                <li>Полная программа вечера</li>
+                <li>Сосиски у мангала</li>
+                <li>Баня, душевные разговоры</li>
+                <li>Размещение в номерах</li>
+                <li>Завтрак</li>
               </ul>
             </div>
           </div>
@@ -378,10 +472,30 @@ export default function Index() {
         <div className="max-w-xl mx-auto">
           <div className="reveal text-center rounded-3xl p-8 md:p-10"
             style={{ background: "rgba(255,255,255,0.7)", border: "1px solid hsl(340 25% 88%)" }}>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="text-4xl">💌</span>
+            </div>
             <p className="text-sm text-[hsl(340,12%,42%)] leading-relaxed mb-4">
               После подтверждения участия тебе будет отправлено <span className="text-[hsl(340,28%,35%)] font-medium">бумажное приглашение</span>. Мы не публикуем мероприятие массово — приглашение передаётся лично, чтобы сохранить атмосферу уюта и сестринства.
             </p>
             <p className="text-xs text-[hsl(340,18%,55%)] italic font-display text-base">Если у тебя есть подруга, которой близка такая атмосфера — ты можешь передать ей приглашение</p>
+          </div>
+        </div>
+      </section>
+
+      {/* PARTNERS */}
+      <section className="py-10 px-5">
+        <div className="max-w-xl mx-auto">
+          <div className="reveal text-center rounded-3xl p-7"
+            style={{ background: "linear-gradient(135deg, hsl(340,35%,97%), hsl(35,40%,97%))", border: "1px solid hsl(340 25% 88%)" }}>
+            <p className="text-sm text-[hsl(340,14%,42%)] leading-relaxed mb-5">
+              🤍&nbsp; Мы будем рады партнёрам и спонсорам, которые захотят стать частью «КУРБАН ПАТИ» ✨
+            </p>
+            <a href="https://t.me/a_ya_writer" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-white text-sm font-medium transition-opacity hover:opacity-90"
+              style={{ background: "hsl(340,48%,68%)" }}>
+              Поддержать проект
+            </a>
           </div>
         </div>
       </section>
@@ -433,36 +547,43 @@ export default function Index() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Имя</label>
+                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Имя *</label>
                   <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
                     placeholder="Твоё имя"
                     className="input-rose w-full px-3.5 py-2.5 text-sm text-[hsl(340,15%,30%)] placeholder:text-[hsl(340,10%,72%)]" />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Возраст</label>
-                  <input required type="number" min="16" max="99" value={form.age} onChange={e => setForm({ ...form, age: e.target.value })}
-                    placeholder="Возраст"
+                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Фамилия *</label>
+                  <input required value={form.surname} onChange={e => setForm({ ...form, surname: e.target.value })}
+                    placeholder="Фамилия"
                     className="input-rose w-full px-3.5 py-2.5 text-sm text-[hsl(340,15%,30%)] placeholder:text-[hsl(340,10%,72%)]" />
                 </div>
               </div>
 
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Возраст *</label>
+                <input required type="number" min="16" max="99" value={form.age} onChange={e => setForm({ ...form, age: e.target.value })}
+                  placeholder="Возраст"
+                  className="input-rose w-full px-3.5 py-2.5 text-sm text-[hsl(340,15%,30%)] placeholder:text-[hsl(340,10%,72%)]" />
+              </div>
+
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Телефон</label>
-                  <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })}
+                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Телефон *</label>
+                  <input required type="tel" value={form.phone} onChange={handlePhoneChange}
                     placeholder="+7 (___) ___-__-__"
                     className="input-rose w-full px-3.5 py-2.5 text-sm text-[hsl(340,15%,30%)] placeholder:text-[hsl(340,10%,72%)]" />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Telegram</label>
-                  <input required value={form.telegram} onChange={e => setForm({ ...form, telegram: e.target.value })}
+                  <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Telegram *</label>
+                  <input required value={form.telegram} onChange={handleTelegramChange} onBlur={handleTelegramBlur}
                     placeholder="@username"
                     className="input-rose w-full px-3.5 py-2.5 text-sm text-[hsl(340,15%,30%)] placeholder:text-[hsl(340,10%,72%)]" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-2">Формат</label>
+                <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-2">Формат *</label>
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { val: "no-sleep", label: "Без ночёвки", price: "1500₽" },
@@ -481,7 +602,7 @@ export default function Index() {
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-2">Трансфер от Соборной мечети?</label>
+                <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-2">Трансфер от Соборной мечети? *</label>
                 <div className="grid grid-cols-2 gap-3">
                   {[{ val: "yes", label: "Да" }, { val: "no", label: "Нет" }].map(opt => (
                     <label key={opt.val}
@@ -496,17 +617,23 @@ export default function Index() {
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Адрес для приглашения</label>
+                <label className="block text-[10px] uppercase tracking-widest text-[hsl(340,18%,58%)] mb-1.5">Адрес для приглашения *</label>
                 <textarea required value={form.address} onChange={e => setForm({ ...form, address: e.target.value })}
                   placeholder="Город, улица, дом, квартира, индекс"
                   rows={2}
                   className="input-rose w-full px-3.5 py-2.5 text-sm text-[hsl(340,15%,30%)] placeholder:text-[hsl(340,10%,72%)] resize-none" />
               </div>
 
+              {error && (
+                <div className="rounded-2xl px-4 py-3 text-sm text-center" style={{ background: "hsl(0,60%,97%)", border: "1px solid hsl(0,40%,88%)", color: "hsl(0,50%,45%)" }}>
+                  Ошибка отправки. Попробуй ещё раз или напиши нам в Telegram: +7 909 055 79 88
+                </div>
+              )}
+
               <button type="submit" disabled={loading}
                 className="w-full py-3.5 rounded-2xl text-white font-medium text-sm transition-opacity hover:opacity-90 disabled:opacity-60"
                 style={{ background: "hsl(340,48%,68%)" }}>
-                {loading ? "Отправляем..." : "Отправить заявку"}
+                {loading ? "Отправляем…" : "Отправить заявку"}
               </button>
             </form>
           )}
@@ -514,13 +641,12 @@ export default function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-10 px-5 text-center" style={{ background: "hsl(340,28%,20%)" }}>
-        <p className="font-display text-xl text-white/80 font-light tracking-widest mb-2">КУРБАН ПАТИ</p>
-        <p className="text-white/40 text-xs mb-3">31 мая 2026 · с. Юськи</p>
-        <p className="text-white/30 text-xs italic max-w-xs mx-auto leading-relaxed">
-          Это закрытый вечер для своих. Передай приглашение подруге, которой близка такая атмосфера.
-        </p>
+      <footer className="py-10 px-5 text-center"
+        style={{ borderTop: "1px solid hsl(340 25% 90%)" }}>
+        <p className="font-display text-xl text-[hsl(340,25%,32%)] font-light tracking-widest mb-2">КУРБАН ПАТИ</p>
+        <p className="text-xs text-[hsl(340,10%,55%)]">клуб Halal girl · 31 мая 2026</p>
       </footer>
+
     </div>
   );
 }
