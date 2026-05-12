@@ -124,9 +124,7 @@ export default function Index() {
         <div className="absolute bottom-40 right-6 opacity-20 text-2xl animate-float-bow" style={{ animationDelay: "0.6s" }}>🎀</div>
 
         <div className="relative z-10 max-w-xl mx-auto">
-          <p className="animate-fade-up opacity-0-init delay-100 text-xs uppercase tracking-[0.35em] text-[hsl(340,38%,62%)] mb-5">
-            31 мая 2026 · с. Юськи
-          </p>
+          <p className="animate-fade-up opacity-0-init delay-100 uppercase tracking-[0.35em] text-[hsl(340,38%,62%)] mb-5 text-xl">клуб Halal girl</p>
           <h1 className="animate-fade-up opacity-0-init delay-200 font-display font-light tracking-widest text-[hsl(340,25%,20%)] leading-none mb-0"
             style={{ fontSize: "clamp(3.5rem, 15vw, 8rem)" }}>
             КУРБАН
