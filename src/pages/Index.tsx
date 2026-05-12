@@ -396,21 +396,37 @@ export default function Index() {
           {submitted ? (
             <div className="reveal rounded-3xl p-8 text-center"
               style={{ background: "rgba(255,255,255,0.9)", border: "1px solid hsl(340 30% 86%)" }}>
-              <div className="text-4xl mb-4">✨</div>
-              <h3 className="font-display text-2xl text-[hsl(340,22%,24%)] font-light mb-3">Заявка отправлена!</h3>
-              <p className="text-sm text-[hsl(340,12%,42%)] leading-relaxed mb-5">
-                Для подтверждения участия внеси оплату:
-              </p>
-              <div className="rounded-2xl p-4 mb-5 space-y-1 text-left"
+              <div className="text-4xl mb-4">🌸</div>
+              <h3 className="font-display text-2xl text-[hsl(340,22%,24%)] font-light mb-2">Заявка принята</h3>
+              <p className="text-sm text-[hsl(340,10%,50%)] mb-6">Спасибо! Ждём тебя на вечере 🎀</p>
+
+              <div className="rounded-2xl p-5 mb-5 text-left space-y-3"
                 style={{ background: "hsl(340,35%,97%)", border: "1px solid hsl(340 25% 88%)" }}>
-                <p className="text-sm text-rose-custom font-medium">1500₽ — без ночёвки</p>
-                <p className="text-sm text-rose-custom font-medium">2500₽ — с ночёвкой</p>
+                <p className="text-xs uppercase tracking-widest text-[hsl(340,30%,58%)] mb-2">Для закрепления места</p>
+                <p className="text-sm text-[hsl(340,12%,38%)] leading-relaxed">
+                  Переведи оплату — <span className="font-semibold text-rose-custom">{form.format === "sleep" ? "2500₽" : "1500₽"}</span> — на Т-Банк по номеру:
+                </p>
+                <p className="font-display text-2xl text-[hsl(340,28%,28%)]">8 909 055 79 88</p>
+                <p className="text-xs text-[hsl(340,10%,50%)]">Айя Васильевна Р.</p>
+                <div className="h-px" style={{ background: "hsl(340 20% 90%)" }} />
+                <p className="text-xs text-[hsl(340,12%,45%)] leading-relaxed">
+                  В комментарии к переводу укажи <span className="font-medium text-[hsl(340,20%,35%)]">своё имя</span> — за кого перевод.
+                </p>
               </div>
-              <p className="text-xs text-[hsl(340,12%,48%)] mb-1">Оплата на <strong>Т-Банк</strong> по номеру телефона:</p>
-              <p className="font-display text-2xl text-[hsl(340,28%,28%)] mb-4">+7 909 715 5294</p>
-              <p className="text-xs text-[hsl(340,10%,50%)] leading-relaxed">
-                После оплаты отправь чек в Telegram. После подтверждения — бумажное приглашение ✨
-              </p>
+
+              <div className="rounded-2xl p-5 mb-5 text-left space-y-2"
+                style={{ background: "hsl(35,45%,97%)", border: "1px solid hsl(35 30% 88%)" }}>
+                <p className="text-xs uppercase tracking-widest text-[hsl(340,30%,58%)] mb-2">Важно</p>
+                <p className="text-xs text-[hsl(340,12%,42%)] leading-relaxed">
+                  Если в течение суток не придёт сообщение о подтверждении — напиши нам в Telegram по тому же номеру: <span className="font-medium text-[hsl(340,22%,34%)]">+7 909 055 79 88</span>
+                </p>
+              </div>
+
+              <a href="https://t.me/+tJYyXO_DsdJmNDVi" target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl text-white text-sm font-medium transition-opacity hover:opacity-90"
+                style={{ background: "hsl(340,48%,68%)" }}>
+                Вступить в чат праздника в Telegram
+              </a>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="reveal rounded-3xl p-6 md:p-8 space-y-4"
