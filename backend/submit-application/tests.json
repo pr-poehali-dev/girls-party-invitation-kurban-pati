@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Submit application",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Айша",
+        "age": "22",
+        "phone": "+79001234567",
+        "telegram": "@aisha",
+        "format": "no-sleep",
+        "transfer": "no",
+        "address": "г. Казань, ул. Примерная, д. 1, кв. 5, 420000"
+      },
+      "expectedStatus": 200,
+      "expectedBody": "{\"ok\": true}",
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
+  ]
+}
