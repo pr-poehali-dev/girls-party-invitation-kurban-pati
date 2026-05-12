@@ -168,7 +168,9 @@ export default function Index() {
         <div className="max-w-2xl mx-auto">
           <SectionTitle>О мероприятии</SectionTitle>
           <div className="reveal text-center">
-            <p className="font-display text-lg md:text-xl text-[hsl(340,18%,32%)] leading-relaxed italic font-light mb-4">Мы создаём пространство, где мусульманки смогут провести Курбан-байрам в атмосфере сестринства, красоты и халяльного отдыха</p>
+            <p className="font-display text-lg md:text-xl text-[hsl(340,18%,32%)] leading-relaxed italic font-light mb-4">Мы создаём пространство, где мусульманки смогут провести Курбан-байрам в атмосфере сестринства, красоты и халяльного отдыха.
+
+«КУРБАН ПАТИ» — это возможность вместе вспомнить смысл праздника, поговорить о покорности Аллаху, щедрости, искренности и ценности жертвенности ради Него.</p>
             <p className="text-sm text-[hsl(340,10%,52%)]">
               Это не массовая вечеринка, а тёплый закрытый вечер для своих.
             </p>
