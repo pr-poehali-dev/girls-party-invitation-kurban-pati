@@ -224,17 +224,17 @@ export default function Index() {
       {/* QUOTE */}
       <section className="relative overflow-hidden py-20 px-5">
         <img
-          src="https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/d5d0873a-ead6-4a01-b4b4-d9f62b5b7171.jpg"
+          src="https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/83b30719-73d8-4e9d-b5ae-56eefd27b736.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0" style={{ background: "rgba(255,245,248,0.55)" }} />
+        <div className="absolute inset-0" style={{ background: "rgba(20,12,8,0.62)" }} />
         <div className="relative z-10 max-w-xl mx-auto text-center">
-          <p className="text-[hsl(340,8%,30%)] mb-3 text-2xl opacity-40 font-display leading-none">"</p>
-          <p className="text-lg md:text-xl text-[hsl(340,22%,28%)] leading-relaxed italic font-display mb-4">
+          <p className="text-white mb-3 text-4xl opacity-30 font-display leading-none">"</p>
+          <p className="text-lg md:text-xl text-white leading-relaxed italic font-display mb-4" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.3)" }}>
             Верующие в своей любви, милосердии и сострадании друг к другу подобны одному телу
           </p>
-          <p className="text-sm text-[hsl(340,18%,50%)] tracking-wide">— аль-Бухари, Муслим</p>
+          <p className="text-sm tracking-wide" style={{ color: "rgba(255,255,255,0.65)" }}>— аль-Бухари, Муслим</p>
         </div>
       </section>
 
@@ -454,11 +454,13 @@ export default function Index() {
             </div>
             <div className="rounded-3xl p-6 relative"
               style={{ background: "linear-gradient(135deg, hsl(340,38%,96%), hsl(35,38%,96%))", border: "1.5px solid hsl(340 38% 80%)" }}>
-              <div className="absolute top-4 right-4 text-[10px] px-2 py-0.5 rounded-full text-white"
-                style={{ background: "hsl(340,48%,68%)" }}>Популярный</div>
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,60%)] mb-1">С ночёвкой</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-xs uppercase tracking-widest text-[hsl(340,35%,60%)]">С ночёвкой</p>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full text-white flex-shrink-0"
+                      style={{ background: "hsl(340,48%,68%)" }}>Популярный</span>
+                  </div>
                   <p className="font-display text-3xl text-rose-custom font-light">5500₽</p>
                 </div>
                 <span className="text-xs text-[hsl(340,12%,55%)] mt-1">18+</span>
