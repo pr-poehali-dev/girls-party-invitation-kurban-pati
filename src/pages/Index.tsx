@@ -217,16 +217,24 @@ export default function Index() {
             <p className="text-sm text-[hsl(340,10%,52%)]">
               «КУРБАН ПАТИ» — это возможность вместе вспомнить смысл праздника, поговорить о покорности Аллаху, щедрости, искренности и ценности жертвенности ради Него.
             </p>
-            <div className="pt-4 pb-2">
-              <div className="inline-block rounded-2xl px-6 py-5 max-w-lg mx-auto"
-                style={{ background: "rgba(255,255,255,0.7)", border: "1px solid hsl(340 25% 88%)" }}>
-                <p className="text-base md:text-lg text-[hsl(340,18%,36%)] leading-relaxed italic font-display">
-                  «Верующие в своей любви, милосердии и сострадании друг к другу подобны одному телу»
-                </p>
-                <p className="text-xs text-[hsl(340,15%,55%)] mt-2 tracking-wide">— аль-Бухари, Муслим</p>
-              </div>
-            </div>
           </div>
+        </div>
+      </section>
+
+      {/* QUOTE */}
+      <section className="relative overflow-hidden py-20 px-5">
+        <img
+          src="https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/d5d0873a-ead6-4a01-b4b4-d9f62b5b7171.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(255,245,248,0.55)" }} />
+        <div className="relative z-10 max-w-xl mx-auto text-center">
+          <p className="text-[hsl(340,8%,30%)] mb-3 text-2xl opacity-40 font-display leading-none">"</p>
+          <p className="text-lg md:text-xl text-[hsl(340,22%,28%)] leading-relaxed italic font-display mb-4">
+            Верующие в своей любви, милосердии и сострадании друг к другу подобны одному телу
+          </p>
+          <p className="text-sm text-[hsl(340,18%,50%)] tracking-wide">— аль-Бухари, Муслим</p>
         </div>
       </section>
 
