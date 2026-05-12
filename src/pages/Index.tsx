@@ -348,7 +348,7 @@ export default function Index() {
               </div>
               <div className="h-px mb-4" style={{ background: "hsl(340 20% 90%)" }} />
               <ul className="space-y-1.5 text-xs text-[hsl(340,12%,45%)]">
-                <li>Выезд до 22:00</li>
+                <li>Выезд 31 мая до 22:00</li>
                 <li>Полная программа вечера</li>
               </ul>
             </div>
