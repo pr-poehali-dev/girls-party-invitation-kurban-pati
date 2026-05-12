@@ -97,6 +97,7 @@ export default function Index() {
     } finally {
       setSubmitted(true);
       setLoading(false);
+      setTimeout(() => document.getElementById("form")?.scrollIntoView({ behavior: "smooth" }), 50);
     }
   };
 
@@ -394,7 +395,7 @@ export default function Index() {
           <SectionTitle>Подать заявку</SectionTitle>
 
           {submitted ? (
-            <div className="reveal rounded-3xl p-8 text-center"
+            <div className="rounded-3xl p-8 text-center"
               style={{ background: "rgba(255,255,255,0.9)", border: "1px solid hsl(340 30% 86%)" }}>
               <div className="text-4xl mb-4">🌸</div>
               <h3 className="font-display text-2xl text-[hsl(340,22%,24%)] font-light mb-2">Заявка принята</h3>
