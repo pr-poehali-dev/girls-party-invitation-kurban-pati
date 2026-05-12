@@ -269,6 +269,33 @@ export default function Index() {
             </div>
           </div>
 
+          {/* Yandex Map */}
+          <div className="reveal mb-8 rounded-3xl overflow-hidden shadow-lg" style={{ border: "1px solid hsl(340 25% 88%)" }}>
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?ll=52.971&pt=52.971,56.820&z=15&l=map&text=%D1%81.%20%D0%AE%D1%81%D1%8C%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%2C%2050"
+              width="100%"
+              height="300"
+              style={{ border: "none", display: "block" }}
+              allowFullScreen
+              title="Карта проведения мероприятия"
+            />
+            <div className="p-4 flex items-center justify-between flex-wrap gap-3"
+              style={{ background: "rgba(255,255,255,0.95)" }}>
+              <div>
+                <p className="text-sm font-medium text-[hsl(340,20%,28%)]">🗺️ Как добраться</p>
+                <p className="text-xs text-[hsl(340,12%,50%)] mt-0.5">с. Юськи, ул. Октябрьская, 50 · трансфер от Соборной мечети</p>
+              </div>
+              <a
+                href="https://yandex.ru/maps/?text=%D1%81.%20%D0%AE%D1%81%D1%8C%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%2C%2050"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-medium px-4 py-2 rounded-full text-white flex-shrink-0"
+                style={{ background: "linear-gradient(135deg, hsl(340,50%,72%), hsl(340,55%,62%))" }}>
+                Открыть в Яндекс Картах
+              </a>
+            </div>
+          </div>
+
           <div className="reveal grid grid-cols-3 gap-3 mb-6">
             {[
               { icon: "Calendar", val: "31 мая", sub: "2026 года" },
