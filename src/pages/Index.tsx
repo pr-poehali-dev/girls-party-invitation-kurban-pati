@@ -3,7 +3,7 @@ import Icon from "@/components/ui/icon";
 
 const PARTY_DATE = new Date("2026-05-31T17:00:00");
 
-const HOUSE_IMG = "https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/83f178c6-4f53-4e2b-bbe1-33274fe19ab3.jpg";
+const HOUSE_IMG = "https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/bucket/f0df47b2-c9bd-4042-83c1-35551879aed2.png";
 const PARTY_IMG = "https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/eb704ecd-38a6-4709-9f05-7915535fa7a1.jpg";
 const DRESS_IMG = "https://cdn.poehali.dev/projects/ca29f423-8335-4892-a51b-0de0bf0dd129/files/b930be80-74f0-4302-9890-6c03a2706e19.jpg";
 
