@@ -422,6 +422,10 @@ export default function Index() {
                 <p className="text-xs text-[hsl(340,20%,50%)] uppercase tracking-wider mb-1 text-center">Важно</p>
                 <p className="text-sm text-[hsl(340,22%,32%)] font-medium leading-relaxed text-center">Платья должны закрывать аурат от пупка до колен</p>
               </div>
+              <div className="rounded-2xl p-4 flex items-start gap-3" style={{ background: "hsl(35,50%,96%)", border: "1px solid hsl(35 40% 86%)" }}>
+                <span className="text-lg mt-0.5">🌸</span>
+                <p className="text-sm text-[hsl(340,18%,38%)] leading-relaxed">Посвяти этот вечер себе — оставь детей дома и позволь себе отдохнуть по-настоящему</p>
+              </div>
             </div>
           </div>
         </div>
